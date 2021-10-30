@@ -40,7 +40,15 @@ Considering the bandwidth requirements of Solana we recommend using a baremetal 
 
 These deploys are built for [Ansible 2.8](https://docs.ansible.com/ansible/2.8/user_guide/index.html) on Ubuntu 20.04 LTS. Any Debian-like Linux distribution you should work as well.
 
-## Playbook
+## Sample playbook
+
+Before running the playbook, make sure you install the required roles:
+
+```
+ansible-galaxy install rpcpool.solana_rpc
+ansible-galaxy install rpcpool.neonevm_proxy
+```
+
 
 To deploy the Neon EVM proxy with a Solana RPC node on the local machine, running on devnet:
 
@@ -50,13 +58,13 @@ To deploy the Neon EVM proxy with a Solana RPC node on the local machine, runnin
   hosts:
     - 127.0.0.1
   roles:
-    - role: rpcpool.solana-rpc-ansible
-			vars:
-				solana_network: devnet
-    - role: rpcpool.neonevm-proxy-ansible
-			vars:
-				noenevm_network: devnet
-```
+    - role: rpcpool.solana_rpc
+      vars:
+  	solana_network: devnet
+    - role: rpcpool.neonevm_proxy
+      vars:
+        neonevm_network: devnet
+``` 
 
 More details about the configuration of the [Solana RPC node can be found here](https://github.com/rpcpool/solana-rpc-ansible).
 
