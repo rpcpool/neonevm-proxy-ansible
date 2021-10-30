@@ -97,4 +97,6 @@ neonevm_env:
 
 The playbook creates a new Neon EVM keypair by default located in `/home/neonevm/neonevm-keypair.json`. You need to fund this keypair for your EVM to work on the Solana chain. The keypair hash can be found in `neonevm.pub` in the deployment directory after the deploy has successfully completed. You can transfer funds to this key from any wallet. 
 
+To check the balance for a devnet node (assuming you have the Solana cli installed), you can always run `solana balance -u devnet \`neonevm.pub\``. This wallet needs to be kept filled to cover the transaction fees for your proxy on devnet.
+
 
