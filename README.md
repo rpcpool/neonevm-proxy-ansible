@@ -8,7 +8,7 @@ The NeonEVM proxy should best be run with a dedicated Solana RPC node. You will 
 
 If you run the NeonEVM proxy on a separate node from your Solana RPC node, then you should ensure the following:
 
- - Minimal latency between NeonEVM and the Solana node
+ - Minimal latency between NeonEVM and the Solana node, ideally they should be on the same private or local network or at least within the same DC.
  - No public access to the Solana RPC node and (ideally) no other Solana RPC traffic to the Neon EVM node: Since it is very easy to make a Solana RPC node fall behind the tip of the network, which would cause issues for the Neon EVM proxy we **strongly** recommend that you have a dedicated RPC node for Neon EVM.
 
 Using a shared or public RPC node for NeonEVM is accordingly not recommended as there is too strong possibility that the node will have variable performance and therefore cause your Neon EVM proxy to fail to submit or confirm some of its transactions, which would mean that you risk loosing the benefits from processing those transactions.
