@@ -40,6 +40,8 @@ Considering the bandwidth requirements of Solana we recommend using a baremetal 
 
 These deploys are built for [Ansible 2.8](https://docs.ansible.com/ansible/2.8/user_guide/index.html) on Ubuntu 20.04 LTS. Any Debian-like Linux distribution you should work as well.
 
+You will also need to have Docker installed on the machine you are deploying to. See deployment instructions [here](https://docs.docker.com/engine/install/).  For an ansible docker installation role you can refer to [geerlingguy/ansible-role-docker](https://github.com/geerlingguy/ansible-role-docker).
+
 ## Sample playbook
 
 Before running the playbook, make sure you install the required roles:
@@ -75,10 +77,9 @@ More details about the configuration of the [Solana RPC node can be found here](
 
 The main configuration variable is `neonevm_network`. Set this to `mainnet`, `testnet` or `devnet`. The default is `devnet`. This will set the neonevm `CONFIG` environment variable which will set the correct values for `EVM_LOADER`, `COLLATERAL_POOL_BASE` and `ETH_TOKEN_MINT`.
 
-### Setting solana RPC server
+### Setting the Solana RPC server
 
 You also need to set `neonevm_solana_rpc`. This will default to our recommended version of running Solana on localhost - i.e. `http://localhost:8899`. If you want to run Neon EVM separate from the Solana node you can specify a different RPC URL in this variable.
-
 
 ### Creating a custom config
 
