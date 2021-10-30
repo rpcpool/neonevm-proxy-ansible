@@ -10,7 +10,7 @@
     system: true
     shell: "/usr/sbin/nologin"
     group: neonevm
-    createhome: false
+    home: /etc/neonevm/
 
 - name: create config dir 
   file:
@@ -29,6 +29,13 @@
     chdir: "{{ neonevm_config_dir }}"
     creates: "{{ neonevm_solana_keypair }}"
 
+- name: ensure permissions on neonevm keypair
+  file:
+    path: "{{ neonevm_solana_keypair }}"
+    owner: neonevm
+    group: neonevm
+    mode: 0600
+
 - name: check neon evm pubkey
   command: /home/solana/.local/share/solana/install/active_release/bin/solana-keygen pubkey "{{ neonevm_solana_keypair }}"
   register: res_pubkey
@@ -41,7 +48,7 @@
 
 - name: write solana public key to file
   local_action: |
-    copy dest=neonevm.pub content="{{ neonevm_public_key_hash }}" create=yes 
+    copy dest=neonevm.pub content="{{ neonevm_public_key_hash }}" 
   become: false
 
 - name: install neonevm
