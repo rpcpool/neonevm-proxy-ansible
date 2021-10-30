@@ -18,4 +18,5 @@ neonevm_default_envs:
    
 neonevm_env: "{{ neonevm_default_envs[neonevm_network] }}"
 
-neonevm_solana_keypair: /home/neonevm/neonevm-keypair.json
+neonevm_config_dir: /etc/neonevm/
+neonevm_solana_keypair: "{{ neonevm_config_dir }}/neonevm-keypair.json"

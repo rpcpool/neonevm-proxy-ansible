@@ -12,13 +12,21 @@
     group: neonevm
     createhome: false
 
+- name: create config dir 
+  file:
+    path: "{{ neonevm_config_dir }}"
+    owner: root
+    group: neonevm 
+    mode: 0770 
+    state: directory
+
 # Configure solana key
 - name: create neon evm solana keypair if not already present
   command: /home/solana/.local/share/solana/install/active_release/bin/solana-keygen new -o "{{ neonevm_solana_keypair }}" --no-bip39-passphrase -s
   become: true
   become_user: neonevm
   args:
-    chdir: /home/neonevm/
+    chdir: "{{ neonevm_config_dir }}"
     creates: "{{ neonevm_solana_keypair }}"
 
 - name: check neon evm pubkey
