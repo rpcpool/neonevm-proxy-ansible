@@ -1,0 +1,21 @@
+neonevm_version: v0.2.0
+
+neonevm_solana_rpc: http://localhost:8899
+
+neonevm_network: devnet
+
+neonevm_default_envs:
+  testnet:
+    CONFIG: testnet
+    SOLANA_URL: "{{ neonevm_solana_rpc }}"
+    NEON_CHAIN_ID: "{{ neon_chain_id|default(omit) }}"
+    NEON_CLI_TIMEOUT: "{{ neonevm_cli_timeout|default(omit) }}"
+  devnet:
+    CONFIG: devnet
+    SOLANA_URL: "{{ neonevm_solana_rpc }}"
+    NEON_CHAIN_ID: "{{ neon_chain_id|default(omit) }}"
+    NEON_CLI_TIMEOUT: "{{ neonevm_cli_timeout|default(omit) }}"
+   
+neonevm_env: "{{ neonevm_default_envs[neonevm_network] }}"
+
+neonevm_solana_keypair: /home/neonevm/neonevm-keypair.json

@@ -1,0 +1,4 @@
+- name: restart neonevm
+  systemd:
+    service: neonevm
+    state: restarted

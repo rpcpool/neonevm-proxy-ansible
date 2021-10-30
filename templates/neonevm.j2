@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -x
+
+docker run --rm --network=host \
+{% for key,val in neonevm_env.items() %}
+                -e {{ key }}={{ val }} \
+{% endfor %}
+                -v {{ neoevm_solana_keypair }}:/root/.config/solana/id.json \
+                --name neonevm \
+                neonlabsorg/proxy:{{ neonevm_version }}

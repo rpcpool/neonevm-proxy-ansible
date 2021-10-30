@@ -1,0 +1,65 @@
+- name: create neonevm group
+  group:
+    name: neonevm
+    system: true
+    state: present
+
+- name: create neonevm system user
+  user:
+    name: neonevm
+    system: true
+    shell: "/usr/sbin/nologin"
+    group: neonevm
+    createhome: false
+
+# Configure solana key
+- name: create neon evm solana keypair if not already present
+  command: /home/solana/.local/share/solana/install/active_release/bin/solana-keygen new -o "{{ neonevm_solana_keypair }}"--no-bip39-passphrase -s
+  become: true
+  become_user: neonevm
+  args:
+    chdir: /home/neonevm/
+    creates: "{{ neonevm_solana_keypair }}"
+
+- name: check neon evm pubkey
+  command: /home/solana/.local/share/solana/install/active_release/bin/solana-keygen pubkey "{{ neonevm_solana_keypair }}"
+  register: res_pubkey
+
+- name: save public key hash
+  set_fact:
+    neonevm_public_key_hash: "{{ res_pubkey.stdout }}"
+
+- debug: msg="Neon EVM Solana public key hash {{ neonevm_public_key_hash }}"
+
+- name: write solana public key to file
+  local_action: |
+    copy dest=neonevm.pub content="{{ neonevm_public_key_hash }}" create=yes 
+  become: false
+
+- name: install neonevm
+  template:
+    src: neonevm.j2
+    dest: /usr/local/bin/neonevm
+    owner: root
+    group: root
+    mode: 0755
+  notify:
+    - restart neonevm
+
+- name: install cache rpc service
+  template:
+    src: neonevm.service.j2
+    dest: /etc/systemd/system/neonevm.service
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart neonevm
+
+- name: ensure neonevm service is started and enabled
+  become: true
+  systemd:
+    daemon_reload: true
+    name: neonevm
+    state: started
+    enabled: true
