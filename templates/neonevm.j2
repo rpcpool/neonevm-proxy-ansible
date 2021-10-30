@@ -3,9 +3,15 @@
 set -x
 
 docker run --rm --network=host \
+{% if neonevm_chain_id is defined %}
+                -e NEON_CHAIN_ID={{ neonevm_chain_id }} \
+{% endif %}
+{% if neonevm_cli_timeout is defined and neonevm_cli_timeout > 0 %}
+                -e NEON_CLI_TIMEOUT={{ neonevm_cli_timeout}} \
+{% endif %}`
 {% for key,val in neonevm_env.items() %}
                 -e {{ key }}={{ val }} \
 {% endfor %}
-                -v {{ neoevm_solana_keypair }}:/root/.config/solana/id.json \
+                -v {{ neonevm_solana_keypair }}:/root/.config/solana/id.json \
                 --name neonevm \
                 neonlabsorg/proxy:{{ neonevm_version }}

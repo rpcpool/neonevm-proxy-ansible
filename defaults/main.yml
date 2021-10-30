@@ -8,15 +8,15 @@ neonevm_default_envs:
   testnet:
     CONFIG: testnet
     SOLANA_URL: "{{ neonevm_solana_rpc }}"
-    NEON_CHAIN_ID: "{{ neon_chain_id|default(omit) }}"
-    NEON_CLI_TIMEOUT: "{{ neonevm_cli_timeout|default(omit) }}"
   devnet:
     CONFIG: devnet
     SOLANA_URL: "{{ neonevm_solana_rpc }}"
-    NEON_CHAIN_ID: "{{ neon_chain_id|default(omit) }}"
-    NEON_CLI_TIMEOUT: "{{ neonevm_cli_timeout|default(omit) }}"
    
 neonevm_env: "{{ neonevm_default_envs[neonevm_network] }}"
 
 neonevm_config_dir: /etc/neonevm/
 neonevm_solana_keypair: "{{ neonevm_config_dir }}/neonevm-keypair.json"
+
+# These are left undefined for the timebeing
+#neonevm_chain_id
+#neonevm_cli_timeout
