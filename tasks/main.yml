@@ -12,6 +12,12 @@
     group: neonevm
     home: /etc/neonevm/
 
+- name: ensure neonevm has access to run docker
+  user:
+    name: neonevm
+    groups: docker
+    append: yes
+
 - name: create config dir 
   file:
     path: "{{ neonevm_config_dir }}"
