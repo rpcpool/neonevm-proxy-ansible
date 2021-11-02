@@ -8,7 +8,7 @@ docker run --rm --network=host \
 {% endif %}
 {% if neonevm_cli_timeout is defined and neonevm_cli_timeout > 0 %}
                 -e NEON_CLI_TIMEOUT={{ neonevm_cli_timeout}} \
-{% endif %}`
+{% endif %}
 {% for key,val in neonevm_env.items() %}
                 -e {{ key }}={{ val }} \
 {% endfor %}
