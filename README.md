@@ -106,3 +106,8 @@ You'll need to fund hte keypair used for Neon:
 ```
 solana airdrop 10 $(cat neonevm.pub) --url https://api.devnet.solana.com
 ```
+
+# Author Information
+
+
+This role was originally developed by [rpcpool](https://rpcpool.com). Patches, suggestions and improvements are always welcome.
