@@ -99,9 +99,9 @@ The playbook creates a new Neon EVM keypair by default located in `/home/neonevm
 
 To check the balance for a devnet node (assuming you have the Solana cli installed), you can always run `solana balance -u devnet $(cat neonevm.pub)`. This wallet needs to be kept filled to cover the transaction fees for your proxy on devnet.
 
-### Getting devnet/ SOL
+### Getting devnet SOL
 
-You'll need to fund hte keypair used for Neon:
+You'll need to fund the	 keypair used for Neon:
 
 ```
 solana airdrop 10 $(cat neonevm.pub) --url https://api.devnet.solana.com
