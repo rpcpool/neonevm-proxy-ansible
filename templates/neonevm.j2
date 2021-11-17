@@ -3,7 +3,7 @@
 set -x
 
 docker run --rm --network=host \
-{% if neonevm_chain_id is defined %}
+{% if neonevm_chain_id is defined or neonevm_network in neonevm_chains %}
                 -e NEON_CHAIN_ID={{ neonevm_chain_id|default(neonevm_chains[neonevm_network]) }} \
 {% endif %}
 {% if neonevm_cli_timeout is defined and neonevm_cli_timeout > 0 %}
