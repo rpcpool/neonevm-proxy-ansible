@@ -8,11 +8,14 @@ neonevm_default_envs:
   testnet:
     CONFIG: testnet
     SOLANA_URL: "{{ neonevm_solana_rpc }}"
-    NEON_CHAIN_ID: 0xe9ac0dc
   devnet:
     CONFIG: devnet
     SOLANA_URL: "{{ neonevm_solana_rpc }}"
-    NEON_CHAIN_ID: 0xe9ac0ce
+    
+neonevm_chains: 
+  testnet: 0xe9ac0dc
+  devnet: 0xe9ac0ce
+  mainnet: 0xe9ac0d6
    
 neonevm_env: "{{ neonevm_default_envs[neonevm_network] }}"
 
