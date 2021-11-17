@@ -13,9 +13,9 @@ neonevm_default_envs:
     SOLANA_URL: "{{ neonevm_solana_rpc }}"
     
 neonevm_chains: 
-  testnet: 0xe9ac0dc
-  devnet: 0xe9ac0ce
-  mainnet: 0xe9ac0d6
+  testnet: "0xe9ac0dc"
+  devnet: "0xe9ac0ce"
+  mainnet: "0xe9ac0d6"
    
 neonevm_env: "{{ neonevm_default_envs[neonevm_network] }}"
 
