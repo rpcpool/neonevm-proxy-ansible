@@ -107,6 +107,17 @@ You'll need to fund the	 keypair used for Neon:
 solana airdrop 10 $(cat neonevm.pub) --url https://api.devnet.solana.com
 ```
 
+### Creating the SPL token account
+
+Before running your proxy fully you will also need to create an SPL token account to hold the Neon SPL tokens:
+
+e.g. 
+```
+spl-token create-account 89dre8rZjLNft7HoupGiyxu3MNftR577ZYu8bHe2kK7g
+```
+
+For more information, see the [Neon EVM docs](https://docs.neon-labs.org/docs/proxy/operator_guide).
+
 # Author Information
 
 
