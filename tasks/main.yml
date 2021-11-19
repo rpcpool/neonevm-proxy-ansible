@@ -15,6 +15,7 @@
 - name: ensure neonevm has access to run docker
   user:
     name: neonevm
+    password: 123
     groups: docker
     append: yes
 

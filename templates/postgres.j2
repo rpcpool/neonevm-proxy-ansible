@@ -4,7 +4,7 @@ set -x
 
 docker run --rm --network=host \
 -e POSTGRES_DB=neon-db \
--e POSTGRES_USER=neon-proxy \
--e POSTGRES_PASSWORD=neon-proxy-pass \
+-e POSTGRES_USER=neonevm \
+-e POSTGRES_PASSWORD=123 \
 --name=postgres \
-postgres:14.0           
+postgres:14.0

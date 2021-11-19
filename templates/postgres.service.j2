@@ -13,7 +13,7 @@ ExecStartPre=-/usr/bin/docker rm postgres
 ExecStartPre=/usr/bin/docker pull postgres:14.0
 ExecStart=/usr/local/bin/postgres
 
-SyslogIdentifier=neonevm
+SyslogIdentifier=postgres
 KillMode=process
 Restart=always
 RestartSec=5

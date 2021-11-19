@@ -19,6 +19,11 @@ neonevm_chains:
    
 neonevm_env: "{{ neonevm_default_envs[neonevm_network] }}"
 
+postgres_host: localhost
+postgres_db: neon-db
+postgres_user: neon-proxy
+postgres_password: neon-proxy-pass
+
 neonevm_config_dir: /etc/neonevm/
 postgres_config_dir: /etc/postgres/
 neonevm_solana_keypair: "{{ neonevm_config_dir }}neonevm-keypair.json"
