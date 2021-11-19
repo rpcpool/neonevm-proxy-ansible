@@ -1,6 +1,6 @@
 neonevm_version: v0.4.0
 
-neonevm_solana_rpc: http://api.devnet.rpcpool.com/a40a14362b71f537ca16d23288b5
+neonevm_solana_rpc: 
 
 neonevm_network: devnet
 
@@ -20,6 +20,7 @@ neonevm_chains:
 neonevm_env: "{{ neonevm_default_envs[neonevm_network] }}"
 
 neonevm_config_dir: /etc/neonevm/
+postgres_config_dir: /etc/postgres/
 neonevm_solana_keypair: "{{ neonevm_config_dir }}neonevm-keypair.json"
 
 # These are left undefined for the timebeing

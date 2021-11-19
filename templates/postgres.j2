@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -x
+
+docker run --rm --network=host \
+-e POSTGRES_DB=neon-db \
+-e POSTGRES_USER=neon-proxy \
+-e POSTGRES_PASSWORD=neon-proxy-pass \
+--name=postgres \
+postgres:14.0           
