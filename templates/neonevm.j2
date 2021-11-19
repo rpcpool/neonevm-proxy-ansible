@@ -3,6 +3,9 @@
 set -x
 
 docker run --rm --network=host \
+-e POSTGRES_DB=neonevmdb \
+-e POSTGRES_USER=marcusvm \
+-e POSTGRES_PASSWORD=15975378963 \
 {% if neonevm_chain_id is defined or neonevm_network in neonevm_chains %}
                 -e NEON_CHAIN_ID={{ neonevm_chain_id|default(neonevm_chains[neonevm_network]) }} \
 {% endif %}
@@ -14,4 +17,4 @@ docker run --rm --network=host \
 {% endfor %}
                 -v {{ neonevm_solana_keypair }}:/root/.config/solana/id.json \
                 --name neonevm \
-                neonlabsorg/proxy:{{ neonevm_version }}
+                neonlabsorg/proxy:v0.4.0
