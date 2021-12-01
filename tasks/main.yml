@@ -37,7 +37,7 @@
 
 # Configure solana key
 - name: create neon evm solana keypair if not already present
-  command: /home/solana/.local/share/solana/install/active_release/bin/solana-keygen new -o "{{ neonevm_solana_keypair }}" --no-bip39-passphrase -s
+  command: /root/.local/share/solana/install/releases/1.8.5/solana-release/bin/solana-keygen new -o "{{ neonevm_solana_keypair }}" --no-bip39-passphrase -s
   become: true
   become_user: neonevm
   args:
