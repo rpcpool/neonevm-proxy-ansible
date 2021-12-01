@@ -3,8 +3,14 @@
 set -x
 
 docker run --rm --network=host \
+<<<<<<< Updated upstream
 -e POSTGRES_DB=neon-db \
 -e POSTGRES_USER=neonevm \
 -e POSTGRES_PASSWORD=123 \
+=======
+-e POSTGRES_DB={{ postgres_db }} \
+-e POSTGRES_USER={{ postgres_user }} \
+-e POSTGRES_PASSWORD={{ postgres_password }} \
+>>>>>>> Stashed changes
 --name=postgres \
 postgres:14.0

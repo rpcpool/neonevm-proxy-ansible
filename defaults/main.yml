@@ -1,6 +1,10 @@
 neonevm_version: v0.4.0
 
+<<<<<<< Updated upstream
 neonevm_solana_rpc: 
+=======
+neonevm_solana_rpc:
+>>>>>>> Stashed changes
 
 neonevm_network: devnet
 
@@ -21,9 +25,17 @@ neonevm_env: "{{ neonevm_default_envs[neonevm_network] }}"
 
 postgres_host: localhost
 postgres_db: neon-db
+<<<<<<< Updated upstream
 postgres_user: neon-proxy
 postgres_password: neon-proxy-pass
 
+=======
+postgres_user: neonevm
+postgres_password: neon-proxy-pass
+
+userpassword: "{{ password }}"
+
+>>>>>>> Stashed changes
 neonevm_config_dir: /etc/neonevm/
 postgres_config_dir: /etc/postgres/
 neonevm_solana_keypair: "{{ neonevm_config_dir }}neonevm-keypair.json"

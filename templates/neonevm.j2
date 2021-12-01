@@ -5,9 +5,15 @@ set -x
 docker run --rm --network=host \
 {% if neonevm_chain_id is defined or neonevm_network in neonevm_chains %}
                 -e NEON_CHAIN_ID={{ neonevm_chain_id|default(neonevm_chains[neonevm_network]) }} \
+<<<<<<< Updated upstream
                 -e POSTGRES_DB=neon-db \
                 -e POSTGRES_USER=neonevm \
                 -e POSTGRES_PASSWORD=123 \
+=======
+                -e POSTGRES_DB={{ postgres_db }}\
+                -e POSTGRES_USER={{ postgres_user }} \
+                -e POSTGRES_PASSWORD={{ postgres_password }} \
+>>>>>>> Stashed changes
 {% endif %}
 {% if neonevm_cli_timeout is defined and neonevm_cli_timeout > 0 %}
                 -e NEON_CLI_TIMEOUT={{ neonevm_cli_timeout}} \

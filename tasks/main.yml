@@ -52,7 +52,7 @@
     mode: 0600
 
 - name: check neon evm pubkey
-  command: /home/solana/.local/share/solana/install/active_release/bin/solana-keygen pubkey "{{ neonevm_solana_keypair }}"
+  command: /root/.local/share/solana/install/releases/1.8.5/solana-release/bin/solana-keygen pubkey "{{ neonevm_solana_keypair }}"
   register: res_pubkey
 
 - name: save public key hash
