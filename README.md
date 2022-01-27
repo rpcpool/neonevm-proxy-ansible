@@ -48,6 +48,8 @@ Dependencies:
     - Configure high connection limit (e.g. 300) on Postgres
 
 
+If you want to run Postgres in Docker please see https://github.com/rpcpool/neonevm-proxy-ansible/pull/2/files
+
 
 ## Sample playbook
 
