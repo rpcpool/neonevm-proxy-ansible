@@ -18,12 +18,12 @@
     groups: docker
     append: yes
 
-- name: create config dir 
+- name: create config dir
   file:
     path: "{{ neonevm_config_dir }}"
     owner: root
-    group: neonevm 
-    mode: 0770 
+    group: neonevm
+    mode: 0770
     state: directory
 
 # Configure solana key
@@ -54,7 +54,7 @@
 
 - name: write solana public key to file
   local_action: |
-    copy dest=neonevm.pub content="{{ neonevm_public_key_hash }}" 
+    copy dest=neonevm.pub content="{{ neonevm_public_key_hash }}"
   become: false
 
 - name: install neonevm
@@ -67,7 +67,7 @@
   notify:
     - restart neonevm
 
-- name: install cache rpc service
+- name: install neonevm service
   template:
     src: neonevm.service.j2
     dest: /etc/systemd/system/neonevm.service
