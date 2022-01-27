@@ -1,6 +1,8 @@
-# NeonEVM Proxy 
 
-The workbookes here sets up a dedicated Neon EVM proxy host. They are intended as a starting point for a new NeonEVM node operator. 
+# NeonEVM Proxy
+
+This playbook sets up a dedicated Neon EVM proxy host.
+It's intended as a starting point for a new NeonEVM node operator.
 
 ## Basic requirements
 
@@ -30,17 +32,24 @@ For the EVM proxy, the [hardware requirements](https://docs.neon-labs.org/docs/p
 In sum, this suggest that a combined node running NeonEVM and the Solana RPC could have the following recommended specs:
 
  - 16-24 cores of a recent processor Zen 2, Zen 3 or latest Cascade Lake Refresh Xeons
- - 256 gb memory 
+ - 256 gb memory
 
 A suitable processor might be EPYC 7443P or 7413P.
 
-Considering the bandwidth requirements of Solana we recommend using a baremetal host rather than running on the cloud, as you will otherwise pay high egress fees as well as (potentially) see low performance due to the virtualisation layer of cloud providers.
+Considering the bandwidth requirements of Solana we recommend using a bare metal host rather than running on the cloud, as you will otherwise pay high egress fees as well as (potentially) see low performance due to the virtualization layer of cloud providers.
 
 ## Software requirements
 
-These deploys are built for [Ansible 2.8](https://docs.ansible.com/ansible/2.8/user_guide/index.html) on Ubuntu 20.04 LTS. Any Debian-like Linux distribution you should work as well.
+These deploys are built for [Ansible 2.9](https://docs.ansible.com/ansible/2.9/user_guide/index.html) on Ubuntu 20.04 LTS. Any Debian-like Linux distribution you should work as well.
 
-You will also need to have Docker installed on the machine you are deploying to. See deployment instructions [here](https://docs.docker.com/engine/install/).  For an ansible docker installation role you can refer to [geerlingguy/ansible-role-docker](https://github.com/geerlingguy/ansible-role-docker).
+Dependencies:
+- Docker [Ansible Role](https://github.com/geerlingguy/ansible-role-docker)
+- PostgreSql [Ansible Role](https://github.com/robertdebock/ansible-role-postgres/)
+    - Configure high connection limit (e.g. 300) on Postgres
+
+
+If you want to run Postgres in Docker please see https://github.com/rpcpool/neonevm-proxy-ansible/pull/2/files
+
 
 ## Sample playbook
 
@@ -66,7 +75,37 @@ To deploy the Neon EVM proxy with a Solana RPC node on the local machine, runnin
     - role: rpcpool.neonevm_proxy
       vars:
         neonevm_network: devnet
-``` 
+```
+
+Full-ish example (missing some patches to postgres role):
+```
+- name: deploy rpc hosts
+  remote_user: root
+  hosts:
+    - 127.0.0.1
+  vars:
+	neonevm_enabled: true
+	solana_network: devnet
+	neonevm_env:
+	  POSTGRES_HOST: 127.0.0.1
+	  # uncomment if you need to use non default port
+	  #PGPORT: 5433
+	  POSTGRES_DB: neonevm
+	  POSTGRES_USER: neonevm
+	  POSTGRES_PASSWORD: "<your-secure-password>"
+
+	postgres_databases:
+	- name: "{{ neonevm_env.POSTGRES_DB }}"
+
+	postgres_users:
+	- name: "{{ neonevm_env.POSTGRES_DB }}"
+	  password: "{{ neonevm_env.POSTGRES_PASSWORD }}"
+
+  roles:
+    - role: robertdebock.postgres
+    - role: rpcpool.solana_rpc
+    - role: rpcpool.neonevm_proxy
+```
 
 More details about the configuration of the [Solana RPC node can be found here](https://github.com/rpcpool/solana-rpc-ansible).
 
@@ -88,14 +127,19 @@ You can create a custom config by specifying `neonevm_env`. For example to run N
 neonevm_env:
 	SOLANA_URL: http://localhost:8899
 	CONFIG: local
+	POSTGRES_DB: neonevm
+	POSTGRES_USER: neonevm
+	POSTGRES_PASSWORD: "<your-secure-password>"
 	EVM_LOADER: deploy # not strictly required as this is the default value for 'CONFIG: local'
 	COLLATERAL_POOL_BASE: deploy  # not strictly required as this is the default value for 'CONFIG: local'
 	ETH_TOKEN_MINT: deploy # not strictly required as this is the default value for 'CONFIG: local'
+
 ```
+More details about the environment variables here: https://docs.neon-labs.org/docs/proxy/operator_guide/#run-a-daemon
 
 ### Neon EVM keypair
 
-The playbook creates a new Neon EVM keypair by default located in `/home/neonevm/neonevm-keypair.json`. You need to fund this keypair for your EVM to work on the Solana chain. The keypair hash can be found in `neonevm.pub` in the deployment directory after the deploy has successfully completed. You can transfer funds to this key from any wallet. 
+The playbook creates a new Neon EVM keypair by default located in `/home/neonevm/neonevm-keypair.json`. You need to fund this keypair for your EVM to work on the Solana chain. The keypair hash can be found in `neonevm.pub` in the deployment directory after the deploy has successfully completed. You can transfer funds to this key from any wallet.
 
 To check the balance for a devnet node (assuming you have the Solana cli installed), you can always run `solana balance -u devnet $(cat neonevm.pub)`. This wallet needs to be kept filled to cover the transaction fees for your proxy on devnet.
 
@@ -111,7 +155,7 @@ solana airdrop 10 $(cat neonevm.pub) --url https://api.devnet.solana.com
 
 Before running your proxy fully you will also need to create an SPL token account to hold the Neon SPL tokens:
 
-e.g. 
+e.g.
 ```
 spl-token create-account 89dre8rZjLNft7HoupGiyxu3MNftR577ZYu8bHe2kK7g
 ```

@@ -1,4 +1,4 @@
-neonevm_version: v0.3.0-rc1
+neonevm_version: v0.5.3
 
 neonevm_solana_rpc: http://localhost:8899
 
@@ -11,12 +11,12 @@ neonevm_default_envs:
   devnet:
     CONFIG: devnet
     SOLANA_URL: "{{ neonevm_solana_rpc }}"
-    
-neonevm_chains: 
+
+neonevm_chains:
   testnet: "0xe9ac0dc"
   devnet: "0xe9ac0ce"
   mainnet: "0xe9ac0d6"
-   
+
 neonevm_env: "{{ neonevm_default_envs[neonevm_network] }}"
 
 neonevm_config_dir: /etc/neonevm/
